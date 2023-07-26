@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>도서관리 애플리케이션</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body{
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+        #main-container{
+            width: 80%;
+            height: 80%;
+        }
+        .row{
+            margin-top: 20px;
+            display: flex;
+        }
+
+        .col{
+            padding: 20px;
+            width: 50%;
+            height: 50%;
+        }
+
+        .input-container{
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+</head>
+<body>
+<div id="main-container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <img class="card-img-top" src="/image/user.png">
+                <div class="card-body">
+                    <h5 style="text-align: center;" class="card-title">사용자 등록</h5>
+                    <div class="input-container">
+                        이름: <input id="input-name"/>
+                    </div>
+                    <div class="input-container">
+                        나이: <input id="input-age"/>
+                    </div>
+                    <button onclick="saveUer()">저장</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img class="card-img-top" src="/image/Book.png">
+                <div class="card-body">
+                    <h5 style="text-align: center;" class="card-title">책 등록</h5>
+                    <div class="input-container">
+                        책이름: <input id="input-name"/>
+                    </div>
+                    <button onclick="saveBook()">저장</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <img class="card-img-top" src="/image/Blent.png">
+                <div class="card-body">
+                    <h5 style="text-align: center;" class="card-title">책 대출</h5>
+                    <button onclick="saveBook()">저장</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <img class="card-img-top" src="/image/Breturn.png">
+                <div class="card-body">
+                    <h5 style="text-align: center;" class="card-title">책 반납</h5>
+                    <button onclick="saveBook()">저장</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

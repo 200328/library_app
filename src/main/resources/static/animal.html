@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>접수 화면</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+    body{
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+    }
+    #main-container{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #receive-card {
+        width: 250px;
+        height: 300px;
+        border: 1px solid black;
+    }
+
+    #input-symptom{
+        width: 167px;
+        height: 100px;
+        margin-top:3px;
+    }
+
+    .input-container{
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .link{
+        text-decoration: none;
+        color: black;
+    }
+
+    .link:hover{
+        text-decoration: underline;
+        color: green;
+    }
+    </style>
+    <script>
+        function saveAnimalCard() {
+            const name = $("#input-name").val()
+            const age = $("#input-age").val()
+            const type = $("#input-type").val()
+            const symptom = $("#input-symptom").val()
+
+            console.log(name, age, type, symptom);
+
+            if (name === ""){ /* 센스 */
+                alert("이름이 비었습니다");
+                return;
+            }
+
+            const data = {  /* 파이썬의 딕셔너리 */
+                "name": name,
+                "type": type,
+                "age": age,
+                "symptom": symptom
+            }
+
+            $.ajax({
+                "type": "POST",
+                "url": "/animal-card",
+                "data": JSON.stringify(data),
+                "contentType": "application/json",
+                "success": function(response){
+                    alert("접수가 등록되었습니다");
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <div id="main-container">
+        <div id="receive-card">
+            <h3 style="text-align: center;"> 접수하기 </h3>
+            <div class="input-container">
+                이름: <input id="input-name"/>
+            </div>
+            <div class="input-container">
+                나이: <input type="number" id="input-age" />
+            </div>
+            <div class="input-container">
+                유형: <input id="input-type" />
+            </div>
+            <div class="input-container">
+                증상: <textarea id="input-symptom"> </textarea>
+            </div>
+            <div class="input-container" style="margin-top: 15px">
+                <button onclick="saveAnimalCard()"> 신청 </button>
+                <a class="link" href="list.html">접수 목록</a>
+            </div>
+        </div>
+    </div>
+<!--<a href="list.html"> 접수 목록 </a> -->
+</body>
+</html>

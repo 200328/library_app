@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- jquery 가져오기 -->
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    // HTML, CSS, JS 직접 -> j
+        function loadUsers(){
+            // 여기 함수에서 GET http://localhost:8080/user를 호출!
+            //GET은 데이터를 "쿼리" book?num=10
+            // PUT이랑 POST는 조금 다르다 -> HTTP body를 사용
+            $.ajax({  //ajax: API를 쏘는 기능
+                url: "http://localhost:8080/user",
+                type: "GET",  // 여기까지가 공을 던지는 부분
+                success: function(response) {  // 공을 받는 부분
+                    console.log(response);
+                }
+            })
+        }
+
+        // 데이터 -> {"name": "클린 코드", "
+        function onClick2(){
+                const name = $("#book-name").val()  // 데이터 갖고 옴
+                const data = {  // 데이터를 JSON으로 만듦
+                    "name": name
+                }
+
+            $.ajax({ //jquery의 ajax를 이용해서
+                type: "POST",
+                url: "http://localhost:8080/book",  // 서버에 보냄
+                data: JSON.stringify(data),
+                contentType: "application/json",  //고정
+                success: function(response) {
+                    alert("저장 성공");
+                }
+            })
+        }
+    </script>
+
+</head>
+<!-- 버튼을 만들어 버튼을 누르면 GET /user 정보 가져오게 코딩 -->
+
+<body>
+    <button onclick="loadUsers()">클릭</button>
+    <button onclick="onClick2()">저장</button>
+    <br/>
+    책 이름: <input id="book-name" />
+</body>
+</html>
