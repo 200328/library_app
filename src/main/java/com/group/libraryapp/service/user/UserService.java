@@ -2,15 +2,13 @@ package com.group.libraryapp.service.user;
 
 import com.group.libraryapp.domain.user.User;
 import com.group.libraryapp.domain.user.UserRepository;
-import com.group.libraryapp.dto.user.UserCreateRequest;
-import com.group.libraryapp.dto.user.UserResponse;
+import com.group.libraryapp.dto.user.request.UserCreateRequest;
+import com.group.libraryapp.dto.user.response.UserResponse;
 //import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service // 마법: 나 스스로를 스프링 빈으로 만들어 줌
 // Controller 안 씀!
@@ -76,10 +74,7 @@ public class UserService {
 //        this.jdbcTemplate = jdbcTemplate;
 //        this.userRepository = userRepository;
 //    }
-//    //get (데이터 달라)
-//    public List<UserResponse> getUsers(){
-//        return userRepository.getUsers();
-//    }
+//
 //    //put(수정)
 //    public void updateUser(UserUpdateRequest request) throws IllegalAccessException {
 //        List<Integer> users = userRepository.findUser(request.getId());
@@ -92,6 +87,12 @@ public class UserService {
 //    public void saveUser(UserCreateRequest request) throws IllegalAccessException {
 //
 //    }
+
+    //get (데이터 달라)
+//    public List<UserResponse> getUsers(){
+//        return userRepository.getUsers();
+//    }
+
 //    //데이터 삭제
 //    public void deleteUser(){
 //        //return deleteRepository.deleteUser();  //수정

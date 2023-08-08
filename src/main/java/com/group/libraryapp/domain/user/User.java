@@ -25,8 +25,8 @@ public class User {
     }
 
     public User(String name, Integer age) {
-        if(name.isBlank()){
-            throw new RuntimeException("사람의 이름이 비어있습니다!");
+        if(name == null || name.isBlank()){ // 잘못된 입력이 들어오면 에러를 던져서 user 생성 x
+            throw new IllegalArgumentException("사람의 이름이 비어있습니다!");
         }
         this.name = name;
         this.age = age;

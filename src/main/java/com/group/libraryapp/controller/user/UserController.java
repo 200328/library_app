@@ -1,20 +1,13 @@
 package com.group.libraryapp.controller.user;
 
-import com.group.libraryapp.domain.user.User;
-import com.group.libraryapp.dto.user.UserCreateRequest;
-import com.group.libraryapp.dto.user.UserResponse;
-import com.group.libraryapp.repository.user.UserRepository;
+import com.group.libraryapp.dto.user.request.UserCreateRequest;
+import com.group.libraryapp.dto.user.response.UserResponse;
 import com.group.libraryapp.service.user.UserService;
 import com.group.libraryapp.service.user.UserUpdateRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 // 스프링 빈: 스프링 서버가 시작할 때 내부에 거대한 컨테이너 (박스)가 생기는데
 // 이 박스 안에 들어있는 클래스
@@ -31,7 +24,8 @@ public class UserController{
 
     public UserController(JdbcTemplate jdbcTemplate, UserService userService) {
         this.jdbcTemplate = jdbcTemplate;
-        this.userService = userService;  // this 쓰는 이유: 매개변수로 받은 jdbcTemplate를 private으로 선언한 jdbcTemplate으로 저장하고 싶음
+        this.userService = userService;  // this 쓰는 이유: 매개변수로 받은 jdbcTemplate를
+        // private으로 선언한 jdbcTemplate으로 저장하고 싶음
     }
 
     @PostMapping("/user")
