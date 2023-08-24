@@ -12,6 +12,8 @@ import com.group.libraryapp.dto.book.BookReturnRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class BookService {
 
@@ -43,7 +45,8 @@ public class BookService {
     @Transactional
     public void loanBook(BookLoanRequest request){
         //1. 책 찾기
-        Book book = bookRepository.findByName(request.getBookName());
+        Book book = bookRepository.findByName(request.getBookName())
+                .orElseThrow(IllegalArgumentException::new);
         if (book == null){
             throw new IllegalArgumentException();
         }
@@ -53,14 +56,15 @@ public class BookService {
         if (user == null){
             throw new IllegalArgumentException();
         }
+        user.loanBook(book.getName());
 
         //3-1. 대출 중인 책이면 예외
         if (userLoanHistoryRepository.existsByBookNameAndIsReturn(request.getBookName(), false)){ //false: 반납되지 않았다
-            throw new IllegalArgumentException(); // if true이면 대출중인 책이 있다는 것이니
+            throw new IllegalArgumentException("진작 대출되어 있는 책입니다."); // if true이면 대출중인 책이 있다는 것이니
         }
 
         //3-2. 대출 처리
-        UserLoanHistory history = new UserLoanHistory(user.getId(),request.getBookName(),false);
+        UserLoanHistory history = new UserLoanHistory(user,request.getBookName());
         userLoanHistoryRepository.save(history);
     }
 
@@ -72,16 +76,18 @@ public class BookService {
     @Transactional
     public void returnBook(BookReturnRequest request){
         //1. 책 찾기
-        Book book = bookRepository.findByName(request.getBookName());
+        Optional<Book> book = bookRepository.findByName(request.getBookName());
         if (book == null){
             throw new IllegalArgumentException();
         }
 
         //2. 유저 찾기
-        User user = userRepository.findByName(request.getUserName());
-        if (user == null){
-            throw new IllegalArgumentException();
-        }
+        User user = userRepository.findByName(request.getUserName())
+                .orElseThrow(IllegalArgumentException::new);
+        user.loanBook((book.getName()));
+//        if (user == null){
+//            throw new IllegalArgumentException();
+//        }
 
         //3. 대출 기록 찾기 (어떤 사람이 어떤 책을 빌렸을 때 그 기록을 가져오게끔)
         UserLoanHistory history = userLoanHistoryRepository.findByUserIdAndBookName(user.getId(), request.getBookName());

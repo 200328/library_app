@@ -7,6 +7,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // select * from user where name =?;
     // 있으면 user 반환, 없으면 null
     User findByName(String name); //public은 interface에서 생략 가능!
-
+    // 이름이 존재한다면 USER 객체, 존재하지 않는다면 null 반환
 
 }

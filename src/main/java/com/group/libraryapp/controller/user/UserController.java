@@ -2,7 +2,8 @@ package com.group.libraryapp.controller.user;
 
 import com.group.libraryapp.dto.user.request.UserCreateRequest;
 import com.group.libraryapp.dto.user.response.UserResponse;
-import com.group.libraryapp.service.user.UserService;
+import com.group.libraryapp.service.user.UserServiceV1;
+import com.group.libraryapp.service.user.UserServiceV2;
 import com.group.libraryapp.service.user.UserUpdateRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +18,12 @@ import java.util.List;
 public class UserController{
 
     private final JdbcTemplate jdbcTemplate;
-    private final UserService userService;
+    private final UserServiceV2 userService;
 
     // new XXX -> 생성자를 호출하는 코드
     // new UserController();
 
-    public UserController(JdbcTemplate jdbcTemplate, UserService userService) {
+    public UserController(JdbcTemplate jdbcTemplate, UserServiceV2 userService) {
         this.jdbcTemplate = jdbcTemplate;
         this.userService = userService;  // this 쓰는 이유: 매개변수로 받은 jdbcTemplate를
         // private으로 선언한 jdbcTemplate으로 저장하고 싶음
@@ -38,7 +39,7 @@ public class UserController{
 //        String name = request.getName();
 //        Integer age = request.getAge();
 //        jdbcTemplate.update(sql, name, age);
-        // jdbcTemplate.update(sql, request.getName(), request.getAge());
+        //jdbcTemplate.update(sql, request.getName(), request.getAge());
     }
 
     // 객체에 있는 static이 아닌 함수를 실행하려면 가장 먼저 무엇을 해야함?

@@ -1,9 +1,6 @@
 package com.group.libraryapp.domain.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 // "A라는 책을 누군가 빌려갔는지" 확인
 // bookName = "A"이고 is_return = false이면, A라는 책을 반납하지 않은 기록 = A 대출중
@@ -13,19 +10,24 @@ public class UserLoanHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id = null;
-    private long userId;
+    @ManyToOne
+    private User user;
     private String bookName;
     private boolean isReturn;
 
-    public UserLoanHistory() {}
+    protected UserLoanHistory() {}
 
-    public UserLoanHistory(long userId, String bookName, boolean isReturn) {
-        this.userId = userId;
+    public UserLoanHistory(User user, String bookName) {
+        this.user = user;
         this.bookName = bookName;
-        this.isReturn = isReturn;
+        this.isReturn = false;
     }
 
     public void doReturn(){
         isReturn = true;
+    }
+
+    public String getBookName() {
+        return this.bookName;
     }
 }

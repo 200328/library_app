@@ -3,6 +3,8 @@ package com.group.libraryapp.domain.user;
 // A. 실제 우리가 관리하는 객체랑 바깥에서 데이터만 들고 오는 객체는 지금 당장 같아보여도 시간이 지나면 다름.
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // 여기에 JPA 적용 (0718)
 // -> 이 객체랑 우리가 만들었던 user 테이블이랑 "매핑"을 할 것.
@@ -19,6 +21,8 @@ public class User {
     private String name;
     private Integer age;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<UserLoanHistory> userLoanHistories = new ArrayList();
     //JPA를 사용하려면, @Entity 클래스에 아무것도 없는 "기본 생성자" 필수!
     public User() {
 
@@ -46,5 +50,17 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+    public void loanBook(String bookName){
+        this.userLoanHistories.add(new UserLoanHistory(User this, bookName));
+    }
+
+    public void returnBook(String bookName){
+        UserLoanHistory targetHistory = this.userLoanHistories.stream()
+                .filter(history -> history.getBookName().equals(bookName)) //괄호 안의 조건을 충족하는 것만 필터링
+                .findFirst() //첫번째에 해당하는 userLoanHistory를 찾음
+                .orElseThrow(IllegalArgumentException::new);  // 없으면 예외처리
+        targetHistory.doReturn();  //이 안에서 isReturn = true로 바꿔주면 반납처리 함.
     }
 }

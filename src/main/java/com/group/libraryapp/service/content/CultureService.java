@@ -37,6 +37,11 @@ public class CultureService {
         // == select * from culture
     }
 
+    public XXX getCultureStat() {
+
+
+    }
+
     // 평점 수정 //
     public void updateRate(CultureUpdateRequest request){
         // select * from content where id = ?;
